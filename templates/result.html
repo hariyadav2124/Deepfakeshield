@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Analysis Result - DeepfakeShield{% endblock %}
+
+{% block content %}
+<div class="glass-card">
+    <div class="text-center">
+        <h2>Analysis Complete</h2>
+        <p class="text-muted mt-2">File: {{ scan.filename }}</p>
+    </div>
+
+    <!-- Gauge representation -->
+    <div class="score-circle {% if scan.result_label == 'Fake' %}score-fake{% else %}score-real{% endif %}">
+        {{ scan.confidence_score }}<span style="font-size: 1rem;">%</span>
+    </div>
+
+    <div class="text-center mb-4">
+        <h1 class="{% if scan.result_label == 'Fake' %}text-danger{% else %}text-success{% endif %}" style="font-size: 3rem; text-transform: uppercase; letter-spacing: 2px;">
+            {{ scan.result_label }}
+        </h1>
+        <p class="mt-2" style="color: #cbd5e1;">Confidence Score</p>
+    </div>
+
+    <hr style="border: 0; height: 1px; background: var(--glass-border); margin: 2rem 0;">
+
+    <div style="display: flex; justify-content: space-between; margin-bottom: 2rem; color: #94a3b8;">
+        <div>
+            <strong>Processing Time:</strong><br>
+            {{ scan.processing_time }} seconds
+        </div>
+        <div style="text-align: right;">
+            <strong>Scan Date:</strong><br>
+            {{ scan.scan_date.strftime('%Y-%m-%d %H:%M') }}
+        </div>
+    </div>
+
+    <div style="display: flex; gap: 1rem;">
+        <a href="{{ url_for('download_report', scan_id=scan.id) }}" class="btn">Download PDF Report</a>
+        <a href="{{ url_for('dashboard') }}" class="btn btn-secondary">Back to Dashboard</a>
+    </div>
+</div>
+{% endblock %}

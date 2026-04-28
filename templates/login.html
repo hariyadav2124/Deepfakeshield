@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Log In - DeepfakeShield{% endblock %}
+
+{% block content %}
+<div class="glass-card">
+    <h2 class="text-center mb-4">Welcome Back</h2>
+    <form action="{{ url_for('login') }}" method="POST">
+        <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" class="form-control" placeholder="you@example.com" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" class="form-control" placeholder="Enter your password" required>
+        </div>
+        <button type="submit" class="btn mt-4">Log In</button>
+    </form>
+    <p class="text-center mt-4 text-muted">
+        Don't have an account? <a href="{{ url_for('register') }}" style="color: var(--primary-color);">Sign Up</a>
+    </p>
+</div>
+{% endblock %}

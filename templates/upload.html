@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Upload Media - DeepfakeShield{% endblock %}
+
+{% block content %}
+<div class="glass-card">
+    <h2 class="text-center mb-4">Analyze Media</h2>
+    <p class="text-center text-muted mb-4">Upload an image, video, or audio file to detect deepfakes.</p>
+    
+    <form id="upload-form" action="{{ url_for('upload') }}" method="POST" enctype="multipart/form-data">
+        <div class="upload-area" id="upload-area">
+            <i class="upload-icon">☁️</i>
+            <h3>Drag & Drop</h3>
+            <p>or click to browse</p>
+            <p class="text-muted mt-2" style="font-size: 0.8rem;">Supported: JPG, PNG, MP4, AVI, WAV, MP3</p>
+        </div>
+        <input type="file" id="file" name="file" style="display: none;" accept=".jpg,.jpeg,.png,.mp4,.avi,.wav,.mp3" required>
+        
+        <button type="submit" class="btn mt-4">Start Analysis</button>
+    </form>
+</div>
+{% endblock %}

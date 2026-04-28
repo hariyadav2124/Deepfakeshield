@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - DeepfakeShield{% endblock %}
+
+{% block content %}
+<div class="glass-card glass-card-wide" style="width: 100%;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+        <h2>Your Scan History</h2>
+        <a href="{{ url_for('upload') }}" class="btn" style="width: auto;">+ New Scan</a>
+    </div>
+
+    {% if scans %}
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>File Name</th>
+                    <th>Result</th>
+                    <th>Confidence</th>
+                    <th>Date</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for scan in scans %}
+                <tr>
+                    <td>#{{ scan.id }}</td>
+                    <td>{{ scan.filename[:20] }}...</td>
+                    <td>
+                        <span class="{{ 'text-danger' if scan.result_label == 'Fake' else 'text-success' }}" style="font-weight: 600;">
+                            {{ scan.result_label }}
+                        </span>
+                    </td>
+                    <td>{{ scan.confidence_score }}%</td>
+                    <td>{{ scan.scan_date.strftime('%Y-%m-%d %H:%M') }}</td>
+                    <td>
+                        <a href="{{ url_for('result', scan_id=scan.id) }}" class="btn btn-secondary" style="padding: 0.25rem 0.5rem; width: auto; font-size: 0.8rem;">View</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div class="text-center" style="padding: 3rem 0;">
+        <p class="text-muted mb-4">You haven't scanned any files yet.</p>
+        <a href="{{ url_for('upload') }}" class="btn" style="width: auto;">Start Your First Scan</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

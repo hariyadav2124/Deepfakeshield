@@ -1,0 +1,1 @@
+from api.deepfake_api import analyze_media
